@@ -1,2 +1,5 @@
 ---
 # handlers file for nacerix.debian-docker
+- name: restart docker
+  service: name=docker state=restarted enabled=yes
+

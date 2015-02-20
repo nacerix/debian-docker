@@ -1,2 +1,42 @@
 ---
 # tasks file for nacerix.debian-docker
+- name: check architecture = amd64
+  shell: echo {{ansible_kernel}} | grep amd64
+  register: amd64_ok
+
+# if wheezy, make sure backports repo is present
+- name: Add backports in sources.list
+  apt_repository: state=present update_cache=yes
+      repo="deb {{apt_mirror}} wheezy-backports main"
+  when: ansible_distribution_release == "wheezy"
+
+# if not amd64 kernel, install one in wheezy
+- name: install the amd64 3.16 kernel on wheezy
+  apt: name=linux-image-amd64 update_cache=yes \
+      default_release=wheezy-backports
+  when: ansible_distribution_release == "wheezy" and amd64_ok.rc == 0
+
+# or in jessie
+- name: install the amd64 kernel
+  apt: name=linux-image-amd64 update_cache=yes
+  when: ansible_distribution_release == "jessie" and amd64_ok.rc == 0
+
+# install docker if jessie
+- name: install docker.io package in jessie
+  apt: name=docker.io update_cache=yes
+  when: ansible_distribution_release == "jessie"
+  notify: restart docker
+
+# or in wheezy
+- name: install docker.io package in wheezy
+  shell: curl -sSL https://get.docker.com/ | sh
+  when: ansible_distribution_release == "wheezy"
+  notify: restart docker
+
+- name: check the installation
+  shell: docker info
+  register: docker_info
+
+- name: fail if something went wrong
+  fail: msg="Something went wrong during docker installation"
+  when: docker_info | failed
