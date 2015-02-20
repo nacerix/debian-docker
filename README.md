@@ -1,31 +1,32 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+nacerix.debian-docker installs the docker and the necessary pre-requisites on debian systems.
+Only jessie and wheezy are supported by this role.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+No particular requirement is needed for this role to be installed.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+This role’s usage is simple and only need one variable:
+apt_mirror: designate the url of the apt mirroring server. By default:
+apt_mirror = "http://http.debian.net/debian"
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role has no dependency.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: nacerix.debian-docker, apt_mirror: "http://http.debian.net/debian" }
 
 License
 -------
@@ -35,4 +36,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Nacer Adamou Saidou <adamou.nacer@gmail.com>

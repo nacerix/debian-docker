@@ -1,4 +1,2 @@
 ---
 # vars file for nacerix.debian-docker
-sudo: yes
-apt_mirror: "http://http.debian.net/debian"
