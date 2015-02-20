@@ -1,0 +1,11 @@
+---
+- hosts: comm
+  vars:
+    apt_mirror: "http://miroir.malagasy.com/debian"
+  roles:
+    - {
+        role: ansible-role-apt,
+        apt_components: "main",
+        apt_source: false
+    }
+    - nacerix.debian-docker
