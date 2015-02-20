@@ -12,8 +12,8 @@ No particular requirement is needed for this role to be installed.
 Role Variables
 --------------
 
-This role’s usage is simple and only need one variable:
-apt_mirror: designate the url of the apt mirroring server. By default:
+This role’s usage is simple and only need one variable, apt_mirror which is the url of the apt mirroring server. By default:
+
 apt_mirror = "http://http.debian.net/debian"
 
 Dependencies
@@ -26,7 +26,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: nacerix.debian-docker, apt_mirror: "http://http.debian.net/debian" }
+         - { role: nacerix_debian-docker, apt_mirror: "http://http.debian.net/debian" }
 
 License
 -------
