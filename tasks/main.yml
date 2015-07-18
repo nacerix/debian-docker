@@ -10,6 +10,12 @@
       repo="deb {{apt_mirror}} wheezy-backports main"
   when: ansible_distribution_release == "wheezy"
 
+# if jessie, make sure backports repo is present
+- name: Add backports in sources.list
+  apt_repository: state=present update_cache=yes
+      repo="deb {{apt_mirror}} jessie-backports main"
+  when: ansible_distribution_release == "jessie"
+
 # if not amd64 kernel, install one in wheezy
 - name: install the amd64 3.16 kernel on wheezy
   apt: name=linux-image-amd64 update_cache=yes \
